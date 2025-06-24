@@ -25,6 +25,13 @@ Este projeto utiliza um ambiente virtual e dependências definidas no arquivo `r
 
 ---
 
-Após a instalação, no terminal, digite o seguinte comando para rodar a API:
+## ✏️ Variáveis no arquivo .env
+
+para de fato conectar a aplicação, é necessário que crie duas variáveis no arquivo .env, a SECRET_KEY possui a chave de criptografia para senhas e a MONGO_URI possui o endereço de conexão com o Mongo DB Atlas:
+1. SECRET_KEY
+2. MONGO_URI
+
+## ✅ Após a instalação, no terminal, digite o seguinte comando para rodar a API:
    ```bash
    uvicorn app.main:app --reload
+   ```
