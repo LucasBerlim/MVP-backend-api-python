@@ -22,3 +22,9 @@ Este projeto utiliza um ambiente virtual e dependências definidas no arquivo `r
 3. Execute o script:
    ```bash
    ./setup.sh
+
+---
+
+Após a instalação, no terminal, digite o seguinte comando para rodar a API:
+   ```bash
+   uvicorn app.main:app --reload
