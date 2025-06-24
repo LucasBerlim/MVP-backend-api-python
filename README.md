@@ -35,3 +35,13 @@ para de fato conectar a aplicação, é necessário que crie duas variáveis no 
    ```bash
    uvicorn app.main:app --reload
    ```
+
+---
+
+## 📖 Documentação da API
+
+A Api utiliza o Swagger para a documentação e testes.
+endereço da documentação: 
+   ```bash
+   http://127.0.0.1:8000/api-docs
+   ```
