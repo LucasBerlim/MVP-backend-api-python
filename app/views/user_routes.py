@@ -41,7 +41,4 @@ def login(user: LoginModel):
         algorithm="HS256"
     )
 
-    print(f"✅ Token gerado: {token}")
-    print(f"🔑 SECRET_KEY usada na geração: {SECRET_KEY}")
-
     return {"token": token, "role": user_db["role"], "active": user_db["active"]}
