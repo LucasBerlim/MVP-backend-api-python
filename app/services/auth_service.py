@@ -19,7 +19,6 @@ if not SECRET_KEY:
 
 def is_admin(token: HTTPAuthorizationCredentials = Depends(security)):
     try:
-        logging.info(f"🔑 Validando token: {token.credentials}")
 
         if not SECRET_KEY:
             logging.error("❌ SECRET_KEY não foi carregada corretamente!")

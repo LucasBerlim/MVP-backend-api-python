@@ -44,6 +44,8 @@ def excluir_parque(parque_id: str):
     if not parque_db:
         raise HTTPException(status_code=404, detail="❌ Parque não encontrado")
 
+    db.eventos.delete_many({"parque_id": parque_id})
+    db.atividades.delete_many({"parque_id": parque_id})
     db.parques.delete_one({"_id": ObjectId(parque_id)})
     return {"message": f"✅ Parque '{parque_id}' deletado com sucesso!"}
 
