@@ -45,3 +45,27 @@ endereço da documentação:
    ```bash
    http://127.0.0.1:8000/api-docs
    ```
+
+# 📘 Especificação de Requisitos da API
+
+## Requisitos Funcionais
+
+|Funcionalidade | Descrição |
+|----------------|-----------|
+| Cadastro e Login de Administradores | Permitir que administradores se registrem, façam login seguro e gerenciem suas sessões de acesso. |
+| Gerenciamento de Informações | O sistema deve permitir que Administradores possam criar, atualizar e remover dados sobre atividades e eventos. |
+| Consulta Pública de Dados | O sistema deve permitir que Visitantes acessam informações atualizadas, sem necessidade de autenticação. |
+
+---
+
+## Requisitos Não Funcionais
+
+| Categoria | Descrição |
+|-----------|-----------|
+| Desempenho | A API deve responder às requisições em até 2 segundos mesmo com alta demanda simultânea. |
+| Segurança | Rotas protegidas com autenticação JWT e criptografia dos dados sensíveis. |
+| Documentação | Todos os endpoints documentados com Swagger (OpenAPI), facilitando testes e integração. |
+| Confiabilidade | Uptime acima de 99,5% e mensagens claras em caso de falhas ou indisponibilidade de serviço. |
+
+---
+
