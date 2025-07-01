@@ -1,4 +1,31 @@
-# MVP-backend-api-python
+## 📑 Índice
+
+- [Introdução ao Projeto](#introdução-ao-projeto)
+- [Instalação do Projeto](#instalação-do-projeto)
+  - [Windows](#windows)
+  - [Linux](#linux)
+  - [Variáveis no arquivo .env](#variáveis-no-arquivo-env)
+  - [Executando a API](#após-a-instalação-no-terminal-digite-o-seguinte-comando-para-rodar-a-api)
+- [Documentação da API](#documentação-da-api)
+- [Especificação de Requisitos da API](#especificação-de-requisitos-da-api)
+  - [Requisitos Funcionais](#requisitos-funcionais)
+  - [Requisitos Não Funcionais](#requisitos-não-funcionais)
+
+
+
+
+# Introdução ao Projeto
+
+Teresópolis é uma cidade que possui geografia montanhosa e rica biodiversidade, sendo cercada por três importantes unidades de conservação. O turismo ecológico é um forte atrativo local, com trilhas, cachoeiras e montanhismo, porém precisa de maior visibilidade. O projeto “Terê Verde” visa promover esse ecoturismo por meio de uma plataforma online interativa, com a finalidade de aumentar o turismo, conscientizar e incentivar a preservação da natureza.
+
+Disciplina: MVP Back-end Development.
+
+Professor: George Santiago.
+
+Equipe do projeto:
+   - Lucas B. Berlim da Cunha
+   - Leticia Lopes Cardoso
+   - Luiz Ricardo Silva
 
 # ⚙️ Instalação do Projeto
 
