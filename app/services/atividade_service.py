@@ -8,6 +8,8 @@ def criar_atividade(atividade: AtividadeModel):
     if atividade.tipo not in TipoAtividadeEnum.__members__.values():
         raise HTTPException(status_code=400, detail="❌ Tipo de atividade inválido. Escolha entre 'trilha', 'cachoeira' ou 'escalada'.")
 
+    if not ObjectId.is_valid(atividade.parque_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     parque = db.parques.find_one({"_id": ObjectId(atividade.parque_id)})
 
     if not parque:
@@ -19,6 +21,8 @@ def criar_atividade(atividade: AtividadeModel):
 
 
 def buscar_atividade(atividade_id: str):
+    if not ObjectId.is_valid(atividade_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     atividade = atividades_collection.find_one({"_id": ObjectId(atividade_id)})
     if not atividade:
         raise HTTPException(status_code=404, detail="❌ Atividade não encontrada")
@@ -47,6 +51,8 @@ def atualizar_atividade(atividade_id: str, atividade: AtividadeModel):
     if atividade.tipo not in TipoAtividadeEnum.__members__.values():
         raise HTTPException(status_code=400, detail="❌ Tipo de atividade inválido. Escolha entre 'trilha', 'cachoeira' ou 'escalada'.")
 
+    if not ObjectId.is_valid(atividade_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     atividade_db = atividades_collection.find_one({"_id": ObjectId(atividade_id)})
 
     if not atividade_db:
@@ -57,6 +63,8 @@ def atualizar_atividade(atividade_id: str, atividade: AtividadeModel):
 
 
 def excluir_atividade(atividade_id: str):
+    if not ObjectId.is_valid(atividade_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     atividade_db = atividades_collection.find_one({"_id": ObjectId(atividade_id)})
 
     if not atividade_db:

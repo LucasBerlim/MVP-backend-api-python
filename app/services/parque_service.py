@@ -11,6 +11,8 @@ def criar_parque(parque: ParqueModel):
 
 
 def buscar_parque(parque_id: str):
+    if not ObjectId.is_valid(parque_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     parque = db.parques.find_one({"_id": ObjectId(parque_id)})
     if not parque:
         raise HTTPException(status_code=404, detail="❌ Parque não encontrado")
@@ -29,6 +31,8 @@ def listar_parques():
 
 
 def atualizar_parque(parque_id: str, parque: ParqueModel):
+    if not ObjectId.is_valid(parque_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     parque_db = db.parques.find_one({"_id": ObjectId(parque_id)})
 
     if not parque_db:
@@ -39,6 +43,8 @@ def atualizar_parque(parque_id: str, parque: ParqueModel):
 
 
 def excluir_parque(parque_id: str):
+    if not ObjectId.is_valid(parque_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     parque_db = db.parques.find_one({"_id": ObjectId(parque_id)})
 
     if not parque_db:

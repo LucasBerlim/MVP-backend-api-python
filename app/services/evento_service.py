@@ -5,6 +5,8 @@ from app.models.evento_model import EventoModel
 
 
 def criar_evento(evento: EventoModel):
+    if not ObjectId.is_valid(evento.parque_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     parque = db.parques.find_one({"_id": ObjectId(evento.parque_id)})
 
     if not parque:
@@ -16,6 +18,8 @@ def criar_evento(evento: EventoModel):
 
 
 def buscar_evento(evento_id: str):
+    if not ObjectId.is_valid(evento_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     evento = eventos_collection.find_one({"_id": ObjectId(evento_id)})
     if not evento:
         raise HTTPException(status_code=404, detail="❌ Evento não encontrado")
@@ -37,6 +41,8 @@ def listar_eventos_por_parque(parque_id: str):
 
 
 def atualizar_evento(evento_id: str, evento: EventoModel):
+    if not ObjectId.is_valid(evento_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     evento_db = eventos_collection.find_one({"_id": ObjectId(evento_id)})
 
     if not evento_db:
@@ -47,6 +53,8 @@ def atualizar_evento(evento_id: str, evento: EventoModel):
 
 
 def excluir_evento(evento_id: str):
+    if not ObjectId.is_valid(evento_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
     evento_db = eventos_collection.find_one({"_id": ObjectId(evento_id)})
 
     if not evento_db:
