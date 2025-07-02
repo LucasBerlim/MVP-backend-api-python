@@ -1,6 +1,15 @@
 from fastapi import APIRouter, HTTPException
 from app.config.database_config import users_collection
 from app.models.user_model import UserModel, LoginModel
+from app.models.user_model import (
+    UserModel,
+    LoginModel,
+    PasswordResetRequestModel,
+    PasswordResetModel,
+)
+from app.services.mail_service import send_email
+from datetime import datetime, timedelta
+import secrets
 import bcrypt
 import jwt
 import os
@@ -23,7 +32,9 @@ def register(user: UserModel):
         "email": user.email,
         "password": hashed_pw.decode(),
         "role": user.role,
-        "active": True
+        "active": True,
+        "reset_token": None,
+        "reset_token_expires": None,
     })
     return {"message": f"✅ Usuário '{user.email}' registrado com sucesso como {user.role}!"}
 
@@ -42,3 +53,48 @@ def login(user: LoginModel):
     )
 
     return {"token": token, "role": user_db["role"], "active": user_db["active"]}
+
+
+@router.post("/admins/password-reset-request")
+def password_reset_request(data: PasswordResetRequestModel):
+    user_db = users_collection.find_one({"email": data.email, "role": "administrador"})
+    if not user_db:
+        raise HTTPException(status_code=404, detail="❌ Administrador não encontrado")
+
+    token = secrets.token_urlsafe(32)
+    expires = datetime.utcnow() + timedelta(hours=1)
+
+    users_collection.update_one(
+        {"_id": user_db["_id"]},
+        {"$set": {"reset_token": token, "reset_token_expires": expires}}
+    )
+
+    reset_link = f"http://localhost:8000/admins/password-reset?token={token}"
+    send_email(data.email, "Redefinição de Senha", f"Clique no link para redefinir sua senha: {reset_link}")
+
+    return {"message": "✅ Instruções de redefinição enviadas por email"}
+
+
+@router.post("/admins/password-reset")
+def password_reset(data: PasswordResetModel):
+    user_db = users_collection.find_one({"reset_token": data.token})
+    if not user_db:
+        raise HTTPException(status_code=404, detail="❌ Token inválido")
+
+    expires = user_db.get("reset_token_expires")
+    if not expires or expires < datetime.utcnow():
+        raise HTTPException(status_code=400, detail="❌ Token expirado")
+
+    hashed_pw = bcrypt.hashpw(data.new_password.encode(), bcrypt.gensalt()).decode()
+    users_collection.update_one(
+        {"_id": user_db["_id"]},
+        {
+            "$set": {
+                "password": hashed_pw,
+                "reset_token": None,
+                "reset_token_expires": None,
+            }
+        },
+    )
+
+    return {"message": "✅ Senha redefinida com sucesso"}
