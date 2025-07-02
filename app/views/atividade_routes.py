@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
-from app.models.atividade_model import AtividadeModel
+from typing import Optional
+from app.models.atividade_model import AtividadeModel, TipoAtividadeEnum
 from app.services.atividade_service import (
     criar_atividade, buscar_atividade, listar_atividades_por_parque,
     atualizar_atividade, excluir_atividade
@@ -20,8 +21,8 @@ def get_atividade(atividade_id: str):
 
 
 @router.get("/atividades/parque/{parque_id}")
-def get_atividades_por_parque(parque_id: str):
-    return listar_atividades_por_parque(parque_id)
+def get_atividades_por_parque(parque_id: str, tipo: Optional[TipoAtividadeEnum] = None):
+    return listar_atividades_por_parque(parque_id, tipo)
 
 
 @router.put("/atividades/{atividade_id}", dependencies=[Depends(is_admin)])
