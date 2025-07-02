@@ -60,6 +60,13 @@ para de fato conectar a aplicação, é necessário que crie duas variáveis no 
 1. SECRET_KEY
 2. MONGO_URI
 
+Variáveis opcionais para redefinição de senha por email:
+
+3. EMAIL_USER
+4. EMAIL_PASSWORD
+5. SMTP_SERVER
+6. SMTP_PORT
+
 ## Após a instalação, no terminal, digite o seguinte comando para rodar a API:
    ```bash
    uvicorn app.main:app --reload
