@@ -11,7 +11,6 @@ router = APIRouter()
 
 @router.get("/parques/nome")
 def get_parque_por_nome(nome: str):
-    print("Nome recebido:", nome)  # debug
     return buscar_parque_por_nome(nome)
 
 

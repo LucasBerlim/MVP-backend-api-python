@@ -27,6 +27,10 @@ if not SECRET_KEY:
 
 @router.post("/register")
 def register(user: UserModel):
+    usuario_existente = users_collection.find_one({"email": user.email})
+    if usuario_existente:
+        raise HTTPException(status_code=400, detail="❌ Email já cadastrado!")
+
     hashed_pw = bcrypt.hashpw(user.password.encode(), bcrypt.gensalt())
     users_collection.insert_one({
         "email": user.email,
