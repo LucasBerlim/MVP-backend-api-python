@@ -24,7 +24,7 @@ Professor: George Santiago.
 
 Equipe do projeto:
    - Lucas B. Berlim da Cunha
-   - Leticia Lopes Cardoso
+   - Leticia Lopes Cardozo
    - Luiz Ricardo Silva
 
 ---
