@@ -69,3 +69,9 @@ def buscar_parque_por_nome(nome_parque: str):
         }
 
     return {"message": "Parque não encontrado"}
+
+
+def listar_parques_basico():
+    cur = db.parques.find({}, {"nome": 1, "localizacao": 1, "imagem": 1})
+    parques = [{"_id": str(p["_id"]), "nome": p.get("nome"), "localizacao": p.get("localizacao"), "imagem": p.get("imagem")} for p in cur]
+    return {"parques": parques}

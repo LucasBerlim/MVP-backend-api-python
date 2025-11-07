@@ -73,8 +73,7 @@ def password_reset_request(data: PasswordResetRequestModel):
         {"$set": {"reset_token": token, "reset_token_expires": expires}}
     )
 
-    reset_link = f"http://localhost:8000/admins/password-reset?token={token}"
-    send_email(data.email, "Redefinição de Senha", f"Clique no link para redefinir sua senha: {reset_link}")
+    send_email(data.email, "Redefinição de Senha", f"Seu token para redefinição de senha: {token}")
 
     return {"message": "✅ Instruções de redefinição enviadas por email"}
 

@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, errors
 from dotenv import load_dotenv
 import os
 
@@ -14,6 +14,11 @@ parques_collection = db["parques"]
 eventos_collection = db["eventos"]
 atividades_collection = db["atividades"]
 
+try:
+    users_collection.create_index("email", unique=True)
+    print("✅ Índice único em 'email' verificado/criado com sucesso.")
+except errors.OperationFailure as e:
+    print("⚠️ Erro ao criar índice (possivelmente já existe):", e)
 
 def setup_database():
     try:
