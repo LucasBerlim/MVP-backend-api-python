@@ -4,10 +4,12 @@ from typing import Optional
 from app.models.evento_model import EventoModel
 from app.services.evento_service import (
     criar_evento, buscar_evento, listar_eventos_por_parque,
-    atualizar_evento, excluir_evento, listar_eventos_recentes
+    atualizar_evento, excluir_evento, listar_eventos_recentes, listar_eventos
 )
 from app.services.parque_service import listar_parques_basico
 from app.services.auth_service import is_admin
+
+from datetime import datetime
 
 router = APIRouter()
 
@@ -15,7 +17,6 @@ router = APIRouter()
 def post_evento(evento: EventoModel):
     return criar_evento(evento)
 
-# ---- ESTÁTICAS/FILTRADAS PRIMEIRO
 @router.get("/eventos/recentes")
 def get_eventos_recentes(
     limit: int = Query(default=5, ge=1, le=100),
@@ -28,7 +29,6 @@ def get_eventos_recentes(
 def get_eventos_por_parque(parque_id: str, limit: int = Query(default=0, ge=0, le=100)):
     return listar_eventos_por_parque(parque_id, limit=limit)
 
-# ---- DINÂMICA POR ÚLTIMO
 @router.get("/eventos/{evento_id}")
 def get_evento(evento_id: str):
     return buscar_evento(evento_id)
